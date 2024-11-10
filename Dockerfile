@@ -15,6 +15,7 @@ COPY rosbridge_library/package.xml $CATKIN_DIR/src/rosbridge_library/
 COPY rosbridge_server/package.xml $CATKIN_DIR/src/rosbridge_server/
 COPY rosbridge_msgs/package.xml $CATKIN_DIR/src/rosbridge_msgs/
 COPY rosapi/package.xml $CATKIN_DIR/src/rosapi/
+COPY tf2_web_republisher/package.xml $CATKIN_DIR/src/tf2_web_republisher/
 RUN . /opt/ros/$ROS_DISTRO/setup.sh \
  && apt-get update \
  && rosdep update \
@@ -31,8 +32,12 @@ COPY rosbridge_library $CATKIN_DIR/src/rosbridge_library
 COPY rosbridge_server $CATKIN_DIR/src/rosbridge_server
 COPY rosbridge_msgs $CATKIN_DIR/src/rosbridge_msgs
 COPY rosapi $CATKIN_DIR/src/rosapi
+COPY tf2_web_republisher $CATKIN_DIR/src/tf2_web_republisher
 RUN . /opt/ros/$ROS_DISTRO/setup.sh \
  && catkin_make
+
+RUN apt-get update \
+ && apt-get install ros-noetic-tf -y
 
 # We want the development workspace active all the time.
 RUN echo "#!/bin/bash\n\
